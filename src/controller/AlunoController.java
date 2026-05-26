@@ -44,7 +44,7 @@ public class AlunoController {
     }
 
     public void excluir() {
-        int linhaSelecionada = view.getTabelaAlunos().getSelectedRow();
+        int linhaSelecionada = view.getTabelaClientes().getSelectedRow();
 
         if (linhaSelecionada == -1) {
             JOptionPane.showMessageDialog(view, "Selecione um aluno na tabela!");
@@ -55,7 +55,7 @@ public class AlunoController {
                 JOptionPane.YES_NO_OPTION);
 
         if (confirmacao == JOptionPane.YES_OPTION) {
-            int id = (int) view.getTabelaAlunos().getValueAt(linhaSelecionada, 0);
+            int id = (int) view.getTabelaClientes().getValueAt(linhaSelecionada, 0);
             dao.excluir(id);
             JOptionPane.showMessageDialog(view, "Aluno excluído com sucesso!");
             limpar();
@@ -67,11 +67,11 @@ public class AlunoController {
         view.getTxtId().setText("");
         view.getTxtNome().setText("");
         view.getTxtEmail().setText("");
-        view.getTabelaAlunos().clearSelection();
+        view.getTabelaClientes().clearSelection();
     }
 
     public void carregarTabela() {
-        DefaultTableModel modelo = (DefaultTableModel) view.getTabelaAlunos().getModel();
+        DefaultTableModel modelo = (DefaultTableModel) view.getTabelaClientes().getModel();
         modelo.setRowCount(0);
 
         List<Aluno> lista = dao.listar();
@@ -82,12 +82,12 @@ public class AlunoController {
     }
 
     public void preencherFormulario() {
-        int linhaSelecionada = view.getTabelaAlunos().getSelectedRow();
+        int linhaSelecionada = view.getTabelaClientes().getSelectedRow();
 
         if (linhaSelecionada != -1) {
-            int id = (int) view.getTabelaAlunos().getValueAt(linhaSelecionada, 0);
-            String nome = (String) view.getTabelaAlunos().getValueAt(linhaSelecionada, 1);
-            String email = (String) view.getTabelaAlunos().getValueAt(linhaSelecionada, 2);
+            int id = (int) view.getTabelaClientes().getValueAt(linhaSelecionada, 0);
+            String nome = (String) view.getTabelaClientes().getValueAt(linhaSelecionada, 1);
+            String email = (String) view.getTabelaClientes().getValueAt(linhaSelecionada, 2);
 
             view.getTxtId().setText(String.valueOf(id));
             view.getTxtNome().setText(nome);

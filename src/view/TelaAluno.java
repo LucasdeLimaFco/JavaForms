@@ -34,7 +34,7 @@ public class TelaAluno extends JFrame {
     private JButton btnExcluir;
     private JButton btnLimpar;
 
-    private JTable tabelaAlunos;
+    private JTable tabelaClientes; // Nome conforme a imagem
     private DefaultTableModel modeloTabela;
 
     private AlunoController controller;
@@ -84,8 +84,8 @@ public class TelaAluno extends JFrame {
             }
         };
 
-        tabelaAlunos = new JTable(modeloTabela);
-        JScrollPane scrollPane = new JScrollPane(tabelaAlunos);
+        tabelaClientes = new JTable(modeloTabela);
+        JScrollPane scrollPane = new JScrollPane(tabelaClientes);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Lista de Alunos"));
         add(scrollPane, BorderLayout.CENTER);
 
@@ -129,7 +129,7 @@ public class TelaAluno extends JFrame {
             }
         });
 
-        tabelaAlunos.addMouseListener(new MouseAdapter() {
+        tabelaClientes.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 controller.preencherFormulario();
             }
@@ -148,7 +148,7 @@ public class TelaAluno extends JFrame {
         return txtEmail;
     }
 
-    public JTable getTabelaAlunos() {
-        return tabelaAlunos;
+    public JTable getTabelaClientes() {
+        return tabelaClientes;
     }
 }
