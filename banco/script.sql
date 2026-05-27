@@ -1,19 +1,17 @@
-CREATE DATABASE cadastro_escola;
+/**
+ * BACK-END / BANCO = Matheus Godoy.
+ */
+CREATE DATABASE IF NOT EXISTS cadastro_etec;
+USE cadastro_etec;
 
-USE cadastro_escola;
-
-CREATE TABLE aluno (
-
+CREATE TABLE IF NOT EXISTS aluno (
     id INT PRIMARY KEY AUTO_INCREMENT,
-
-    nome VARCHAR(100),
-    cpf VARCHAR(20),
-    genero VARCHAR(30),
-    data_nascimento VARCHAR(20),
-    nacionalidade VARCHAR(50),
-    telefone VARCHAR(30),
-    email VARCHAR(100),
-    endereco VARCHAR(200),
-    cidade VARCHAR(100),
-    cep VARCHAR(20)
+    nome VARCHAR(100) NOT NULL,
+    sobrenome VARCHAR(100) NOT NULL,
+    nome_mae VARCHAR(100) NOT NULL,
+    nome_pai VARCHAR(100),
+    cpf VARCHAR(14) NOT NULL,
+    data_nasc VARCHAR(10) NOT NULL, 
+    endereco VARCHAR(200) NOT NULL,
+    cep VARCHAR(9) NOT NULL 
 );

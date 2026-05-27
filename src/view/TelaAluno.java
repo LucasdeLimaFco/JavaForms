@@ -1,3 +1,6 @@
+/**
+ * VIEW / TELAS = Lucas de Lima.
+ */
 package view;
 
 import java.awt.BorderLayout;
@@ -21,140 +24,90 @@ import controller.AlunoController;
 public class TelaAluno extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private JLabel lblId;
-    private JLabel lblNome;
-    private JLabel lblEmail;
-
-    private JTextField txtId;
-    private JTextField txtNome;
-    private JTextField txtEmail;
-
-    private JButton btnNovo;
-    private JButton btnSalvar;
-    private JButton btnExcluir;
-    private JButton btnLimpar;
-
+    private JTextField txtId, txtNome, txtSobrenome, txtMae, txtPai, txtCpf, txtDataNasc, txtEndereco, txtCep;
+    private JButton btnNovo, btnSalvar, btnExcluir, btnLimpar;
     private JTable tabelaClientes;
     private DefaultTableModel modeloTabela;
-
     private AlunoController controller;
 
     public TelaAluno() {
-        setTitle("Cadastro de Alunos - Secretaria Etec");
-        setSize(700, 450);
+        setTitle("Secretaria Etec - Cadastro de Alunos");
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
         criarComponentes();
-
         controller = new AlunoController(this);
         configurarEventos();
         controller.carregarTabela();
     }
 
     private void criarComponentes() {
-        JPanel painelFormulario = new JPanel(new GridLayout(3, 2, 10, 10));
+        JPanel painelFormulario = new JPanel(new GridLayout(9, 2, 5, 5));
         painelFormulario.setBorder(BorderFactory.createTitledBorder("Dados do Aluno"));
 
-        lblId = new JLabel("ID:");
-        txtId = new JTextField();
-        txtId.setEditable(false);
+        painelFormulario.add(new JLabel("ID:"));
+        txtId = new JTextField(); txtId.setEditable(false); painelFormulario.add(txtId);
 
-        lblNome = new JLabel("Nome:");
-        txtNome = new JTextField();
+        painelFormulario.add(new JLabel("Nome:"));
+        txtNome = new JTextField(); painelFormulario.add(txtNome);
 
-        lblEmail = new JLabel("Email:");
-        txtEmail = new JTextField();
+        painelFormulario.add(new JLabel("Sobrenome:"));
+        txtSobrenome = new JTextField(); painelFormulario.add(txtSobrenome);
 
-        painelFormulario.add(lblId);
-        painelFormulario.add(txtId);
-        painelFormulario.add(lblNome);
-        painelFormulario.add(txtNome);
-        painelFormulario.add(lblEmail);
-        painelFormulario.add(txtEmail);
+        painelFormulario.add(new JLabel("Nome da Mãe:"));
+        txtMae = new JTextField(); painelFormulario.add(txtMae);
+
+        painelFormulario.add(new JLabel("Nome do Pai (Obrigatório):"));
+        txtPai = new JTextField(); painelFormulario.add(txtPai);
+
+        painelFormulario.add(new JLabel("CPF:"));
+        txtCpf = new JTextField(); painelFormulario.add(txtCpf);
+
+        painelFormulario.add(new JLabel("Data Nasc (DD/MM/AAAA):"));
+        txtDataNasc = new JTextField(); painelFormulario.add(txtDataNasc);
+
+        painelFormulario.add(new JLabel("Endereço:"));
+        txtEndereco = new JTextField(); painelFormulario.add(txtEndereco);
+
+        painelFormulario.add(new JLabel("CEP:"));
+        txtCep = new JTextField(); painelFormulario.add(txtCep);
 
         add(painelFormulario, BorderLayout.NORTH);
 
-        modeloTabela = new DefaultTableModel(new Object[] { "ID", "Nome", "Email" }, 0) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
+        modeloTabela = new DefaultTableModel(new Object[] { "ID", "Nome", "Sobrenome", "Mãe", "Pai", "CPF", "Nasc", "Endereço", "CEP" }, 0) {
+            @Override public boolean isCellEditable(int row, int col) { return false; }
         };
 
         tabelaClientes = new JTable(modeloTabela);
-        JScrollPane scrollPane = new JScrollPane(tabelaClientes);
-        scrollPane.setBorder(BorderFactory.createTitledBorder("Lista de Alunos"));
-        add(scrollPane, BorderLayout.CENTER);
+        add(new JScrollPane(tabelaClientes), BorderLayout.CENTER);
 
-        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
-
-        btnNovo = new JButton("Novo");
-        btnSalvar = new JButton("Salvar");
-        btnExcluir = new JButton("Excluir");
-        btnLimpar = new JButton("Limpar");
-
-        painelBotoes.add(btnNovo);
-        painelBotoes.add(btnSalvar);
-        painelBotoes.add(btnExcluir);
-        painelBotoes.add(btnLimpar);
-
+        JPanel painelBotoes = new JPanel(new FlowLayout());
+        btnNovo = new JButton("Novo"); btnSalvar = new JButton("Salvar"); btnExcluir = new JButton("Excluir"); btnLimpar = new JButton("Limpar");
+        painelBotoes.add(btnNovo); painelBotoes.add(btnSalvar); painelBotoes.add(btnExcluir); painelBotoes.add(btnLimpar);
         add(painelBotoes, BorderLayout.SOUTH);
     }
 
     private void configurarEventos() {
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                controller.limpar();
-            }
-        });
-
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                controller.salvar();
-            }
-        });
-
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                controller.excluir();
-            }
-        });
-
-        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                controller.limpar();
-            }
-        });
-
+        btnNovo.addActionListener(e -> controller.limpar());
+        btnSalvar.addActionListener(e -> controller.salvar());
+        btnExcluir.addActionListener(e -> controller.excluir());
+        btnLimpar.addActionListener(e -> controller.limpar());
         tabelaClientes.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                controller.preencherFormulario();
-            }
+            @Override public void mouseClicked(MouseEvent e) { controller.preencherFormulario(); }
         });
     }
 
-    public JTextField getTxtId() {
-        return txtId;
-    }
-
-    public JTextField getTxtNome() {
-        return txtNome;
-    }
-
-    public JTextField getTxtEmail() {
-        return txtEmail;
-    }
-
-    public JTable getTabelaClientes() {
-        return tabelaClientes;
-    }
+    // Getters
+    public JTextField getTxtId() { return txtId; }
+    public JTextField getTxtNome() { return txtNome; }
+    public JTextField getTxtSobrenome() { return txtSobrenome; }
+    public JTextField getTxtMae() { return txtMae; }
+    public JTextField getTxtPai() { return txtPai; }
+    public JTextField getTxtCpf() { return txtCpf; }
+    public JTextField getTxtDataNasc() { return txtDataNasc; }
+    public JTextField getTxtEndereco() { return txtEndereco; }
+    public JTextField getTxtCep() { return txtCep; }
+    public JTable getTabelaClientes() { return tabelaClientes; }
 }

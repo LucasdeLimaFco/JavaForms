@@ -1,3 +1,6 @@
+/**
+ * INTEGRAÇÃO / MAIN / TESTES = Pietro Bruneli.
+ */
 package controller;
 
 import java.util.List;
@@ -20,14 +23,22 @@ public class AlunoController {
 
     public void salvar() {
         String nome = view.getTxtNome().getText();
-        String email = view.getTxtEmail().getText();
+        String sobrenome = view.getTxtSobrenome().getText();
+        String mae = view.getTxtMae().getText();
+        String pai = view.getTxtPai().getText();
+        String cpf = view.getTxtCpf().getText();
+        String nasc = view.getTxtDataNasc().getText();
+        String endereco = view.getTxtEndereco().getText();
+        String cep = view.getTxtCep().getText();
 
-        if (nome == null || nome.trim().isEmpty() || email == null || email.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Preencha todos os campos!");
+        // Validação: Tudo obrigatório, menos o Pai
+        if (nome.trim().isEmpty() || sobrenome.trim().isEmpty() || mae.trim().isEmpty() || 
+            cpf.trim().isEmpty() || nasc.trim().isEmpty() || endereco.trim().isEmpty() || cep.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(view, "Preencha todos os campos obrigatórios (Nome, Sobrenome, Mãe, CPF, Data, Endereço e CEP)!");
             return;
         }
 
-        Aluno aluno = new Aluno(nome, email);
+        Aluno aluno = new Aluno(nome, sobrenome, mae, pai, cpf, nasc, endereco, cep);
 
         String idStr = view.getTxtId().getText();
         try {
@@ -74,7 +85,13 @@ public class AlunoController {
     public void limpar() {
         view.getTxtId().setText("");
         view.getTxtNome().setText("");
-        view.getTxtEmail().setText("");
+        view.getTxtSobrenome().setText("");
+        view.getTxtMae().setText("");
+        view.getTxtPai().setText("");
+        view.getTxtCpf().setText("");
+        view.getTxtDataNasc().setText("");
+        view.getTxtEndereco().setText("");
+        view.getTxtCep().setText("");
         view.getTabelaClientes().clearSelection();
     }
 
@@ -85,7 +102,11 @@ public class AlunoController {
         try {
             List<Aluno> lista = dao.listar();
             for (Aluno aluno : lista) {
-                modelo.addRow(new Object[] { aluno.getId(), aluno.getNome(), aluno.getEmail() });
+                modelo.addRow(new Object[] { 
+                    aluno.getId(), aluno.getNome(), aluno.getSobrenome(), 
+                    aluno.getNome_mae(), aluno.getNome_pai(), aluno.getCpf(), 
+                    aluno.getData_nasc(), aluno.getEndereco(), aluno.getCep() 
+                });
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(view, "Erro ao carregar tabela: " + e.getMessage());
@@ -97,13 +118,15 @@ public class AlunoController {
 
         if (linhaSelecionada != -1) {
             try {
-                Object idObj = view.getTabelaClientes().getValueAt(linhaSelecionada, 0);
-                Object nomeObj = view.getTabelaClientes().getValueAt(linhaSelecionada, 1);
-                Object emailObj = view.getTabelaClientes().getValueAt(linhaSelecionada, 2);
-
-                view.getTxtId().setText(String.valueOf(idObj));
-                view.getTxtNome().setText(String.valueOf(nomeObj));
-                view.getTxtEmail().setText(String.valueOf(emailObj));
+                view.getTxtId().setText(String.valueOf(view.getTabelaClientes().getValueAt(linhaSelecionada, 0)));
+                view.getTxtNome().setText(String.valueOf(view.getTabelaClientes().getValueAt(linhaSelecionada, 1)));
+                view.getTxtSobrenome().setText(String.valueOf(view.getTabelaClientes().getValueAt(linhaSelecionada, 2)));
+                view.getTxtMae().setText(String.valueOf(view.getTabelaClientes().getValueAt(linhaSelecionada, 3)));
+                view.getTxtPai().setText(String.valueOf(view.getTabelaClientes().getValueAt(linhaSelecionada, 4)));
+                view.getTxtCpf().setText(String.valueOf(view.getTabelaClientes().getValueAt(linhaSelecionada, 5)));
+                view.getTxtDataNasc().setText(String.valueOf(view.getTabelaClientes().getValueAt(linhaSelecionada, 6)));
+                view.getTxtEndereco().setText(String.valueOf(view.getTabelaClientes().getValueAt(linhaSelecionada, 7)));
+                view.getTxtCep().setText(String.valueOf(view.getTabelaClientes().getValueAt(linhaSelecionada, 8)));
             } catch (Exception e) {
                 System.err.println("Erro ao preencher formulário: " + e.getMessage());
             }
