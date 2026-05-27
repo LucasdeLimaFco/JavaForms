@@ -34,13 +34,13 @@ public class TelaAluno extends JFrame {
     private JButton btnExcluir;
     private JButton btnLimpar;
 
-    private JTable tabelaClientes; // Nome conforme a imagem
+    private JTable tabelaClientes;
     private DefaultTableModel modeloTabela;
 
     private AlunoController controller;
 
     public TelaAluno() {
-        setTitle("Secretaria Etec - Cadastro de Alunos");
+        setTitle("Cadastro de Alunos - Secretaria Etec");
         setSize(700, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -79,6 +79,7 @@ public class TelaAluno extends JFrame {
         modeloTabela = new DefaultTableModel(new Object[] { "ID", "Nome", "Email" }, 0) {
             private static final long serialVersionUID = 1L;
 
+            @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -106,30 +107,35 @@ public class TelaAluno extends JFrame {
 
     private void configurarEventos() {
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 controller.limpar();
             }
         });
 
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 controller.salvar();
             }
         });
 
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 controller.excluir();
             }
         });
 
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 controller.limpar();
             }
         });
 
         tabelaClientes.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent e) {
                 controller.preencherFormulario();
             }
