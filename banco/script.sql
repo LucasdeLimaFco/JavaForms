@@ -1,8 +1,19 @@
-CREATE DATABASE IF NOT EXISTS cadastro_etec;
-USE cadastro_etec;
+CREATE DATABASE cadastro_escola;
 
-CREATE TABLE IF NOT EXISTS aluno (
+USE cadastro_escola;
+
+CREATE TABLE aluno (
+
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(150) NOT NULL
+
+    nome VARCHAR(100),
+    cpf VARCHAR(20),
+    genero VARCHAR(30),
+    data_nascimento VARCHAR(20),
+    nacionalidade VARCHAR(50),
+    telefone VARCHAR(30),
+    email VARCHAR(100),
+    endereco VARCHAR(200),
+    cidade VARCHAR(100),
+    cep VARCHAR(20)
 );
